@@ -192,13 +192,21 @@ static void driver_report_completion(void *opaque, int ret) {
 
 static int disksim_open(BlockDriverState *bs, const char *filename, int bdrv_flags) {
 	BDRVDiskSimState* s = bs->opaque;
-	const char *parv;
+	char *parv;
+        const char *parv_tmp;
+        int   parv_length;
 	char *stats, *file;
 	int ret;
 
+	parv_length = strlen(filename) - strlen("disksim:");
+        parv = (char*) malloc(parv_length);
+	memset(parv,'\0',parv_length);
+        parv_tmp = filename + strlen("disksim:");
+        strcpy(parv, parv_tmp);
+
 	if (strncmp(filename, "disksim:", strlen("disksim:")))
 		return -EINVAL;
-	parv = filename + strlen("disksim:");
+	//parv = filename + strlen("disksim:");
 
 	if (!(stats = strchr(parv, ':')))
 		return -EINVAL;

@@ -2084,8 +2084,8 @@ fi # test "$curl"
 ##########################################
 # disksim probe
 
-if test "$disksim" == "yes" ; then
-  ds_topdir="../disksim-4.0"
+if test "$disksim" = "yes" ; then
+  ds_topdir="../disksim_patch"
   if test -d $ds_topdir ; then
   	ds_topdir=$(readlink -f $ds_topdir)
     disksim_cflags="-I $ds_topdir/include -I $ds_topdir/src"
